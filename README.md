@@ -13,6 +13,8 @@ Input files and folders:
 
 #### THE FOLLOWING INPUT FILES ARE STORED ON ZENODO AND MUST BE DOWNLOADED AND STORED IN PATH AS SHOWN PRIOR TO RUNNING CODES ####
 
+misc_functions/malawi_Vs30_active.txt: USGS slope-based Vs30 values for Malawi (Wald and Allen 2007)
+
 syncat_MSSD/EQCAT_comb.mat: Matab file for MSSD Direct catalog for all possible rupture weightings
 
 psha_MAP_em/GM_MSSD_em_20220302: Ground motions needed to plot PSHA maps
@@ -25,7 +27,7 @@ syncat_adaptedMSSD/MSSD_Catalog_Adapted_em.mat: Matlab file for Adapated MSSD ev
 
 syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
 
-#######
+####### The following files are included with this release on Github ######
 
 syncat_PSHA_MSSD_input.xls: Main spreadsheet for editing MSSD and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MMSD_input.’
 
@@ -63,7 +65,7 @@ GMPE/GMPEcoef_Malawi: Coefficients for GMPE used in PSHA
 ISC_GEM_EAcatalog.mat: ISC catalog since for East Africa Seismicity (Poggi et al 2017).
 
 
-Run scripts in this order:
+#### To perform PSHA, run scripts in this order ####
 
 1.) MSSD Source Geometry
 
@@ -141,9 +143,9 @@ GMPE/seismicVelocityComparisonPlot: Plot 1D seismic velocity models for Malawi f
 
 5.) PSHA
 
-***NOTE*** Require evaluating background catalog and all 5 MSSD catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/) with the appropriate text file. These codes may therefore require adaption for use elsewhere.
+***NOTE*** Require evaluating background catalog and all 5 MSSD catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/). These codes may therefore require adaption for use elsewhere.
 
-Each script is identical apart from the ‘num_par’ parameter which specifies which catalog interval it assesses. Use ‘par_opts’ variable to change how catalog is assessed***
+#### Each script is identical apart from the ‘num_par’ parameter which specifies which catalog interval it assesses. Use ‘par_opts’ variable to change how catalog is assessed ####
 
 5a) PSHA Site
 
