@@ -12,7 +12,7 @@ Mapping Toolbox
 
 ## Input files and folders:
 
-### The following input files are stored on Zenodo at https://doi.org/10.5281/zenodo.6350793 and must be downloaded and stored in path as shown
+### The following input files are stored on Zenodo at https://zenodo.org/record/6350793#.Yi7AoC0Rpz9 and must be downloaded and stored in path as shown
 
 misc_functions/malawi_Vs30_active.txt: USGS slope-based Vs30 values for Malawi (Wald and Allen 2007)
 
