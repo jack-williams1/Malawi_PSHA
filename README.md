@@ -12,7 +12,7 @@ Mapping Toolbox
 
 ## Input files and folders:
 
-### The following input files are stored on Zenodo and must be downloaded and stored in path as shown
+### The following input files are stored on Zenodo at 10.5281/zenodo.6350793 and must be downloaded and stored in path as shown
 
 misc_functions/malawi_Vs30_active.txt: USGS slope-based Vs30 values for Malawi (Wald and Allen 2007)
 
@@ -38,7 +38,7 @@ MSSD_sourcecalcs/MSSD.xls: Spreadsheet with data for each source in the Malawi S
 
 #2-4 ‘Section Geometry,’ ‘Fault Geometry,’ ‘MultiFaultGeometry’:  list of sections with information on the geometry and source properties of each rupture type identified in the MSSD.
 
-#5‘MSSD_AdaptedSources’: list of information necessary for PSHA using Youngs & Coppersmith 1985 approach. Each ‘section,’ ‘fault,’ or ‘multifault’ is contained within the largest system it is part of (i.e. fault or multi fault.’
+#5‘MSSD_AdaptedSources’: list of information necessary for PSHA using Youngs & Coppersmith 1985 approach. Each ‘section,’ ‘fault,’ or ‘multifault’ is contained within the largest system it is part of (i.e. fault or multi fault).
 
 #6‘BasinSpecificValues’: The plate motion vector (and 1 sigma error) for each basin in Malawi, calculated from the geodetic model described in Wedmore et al (2021). Used in slip rate calculations
 
