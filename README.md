@@ -1,17 +1,18 @@
-Malawi PSHA using the MSSD
+# Malawi probabilistic seismic hazard analysis (PSHA) using the Malawi Seismogenic Source Database (MSSD)
 
 Last Edited by Jack Williams 14/03/22 (jack.williams@otago.ac.nz)
 
-The following describes the necessary files and steps to (1) generate the Malawi Seismogenic Source Database (MSSD; Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022).
+The following describes the necessary files and steps to (1) generate the MSSD (Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022).
 
 Codes are written in MATLAB and require the following toolboxes:
-# Image Processing
-# Mapping Toolbox
 
+Image Processing
 
-Input files and folders:
+Mapping Toolbox
 
-#### THE FOLLOWING INPUT FILES ARE STORED ON ZENODO AND MUST BE DOWNLOADED AND STORED IN PATH AS SHOWN PRIOR TO RUNNING CODES ####
+## Input files and folders:
+
+### The following input files are stored on Zenodo and must be downloaded and stored in path as shown
 
 misc_functions/malawi_Vs30_active.txt: USGS slope-based Vs30 values for Malawi (Wald and Allen 2007)
 
@@ -27,7 +28,7 @@ syncat_adaptedMSSD/MSSD_Catalog_Adapted_em.mat: Matlab file for Adapated MSSD ev
 
 syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
 
-####### The following files are included with this release on Github ######
+### The following files are included with this release on Github
 
 syncat_PSHA_MSSD_input.xls: Main spreadsheet for editing MSSD and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MMSD_input.’
 
@@ -42,7 +43,6 @@ MSSD_sourcecalcs/MSSD.xls: Spreadsheet with data for each source in the Malawi S
 #6‘BasinSpecificValues’: The plate motion vector (and 1 sigma error) for each basin in Malawi, calculated from the geodetic model described in Wedmore et al (2021). Used in slip rate calculations
 
 #7‘FaultObliquity’: Spreadsheet to compare source moment rates in catalogs and their 'analytical' moment rate. Can also calculate their moment rate if they were optimally oriented to the regional extension azimuth and extended through the 35 km seismogenic layer in Malawi (see appendix A3 in Williams et al 2022).
-
 
 The spreadsheets ‘Section Geometry,’ ‘Fault Geometry,’ ‘MultiFaultGeometry,’ and ‘MSSD_ApdatedSources’ are linked to ‘Leonard2010’ through VLOOKUP functions, and linked to Matlab through the generation of the ‘MSSD_sources’ .mat file using the ‘Generate_MATfile.m’ script
 
@@ -64,10 +64,9 @@ GMPE/GMPEcoef_Malawi: Coefficients for GMPE used in PSHA
 
 ISC_GEM_EAcatalog.mat: ISC catalog since for East Africa Seismicity (Poggi et al 2017).
 
+## To perform PSHA, run scripts in this order
 
-#### To perform PSHA, run scripts in this order ####
-
-1.) MSSD Source Geometry
+### 1.) MSSD Source Geometry
 
 MSSD_sourcegeom/fault_geom_1.m: Script for constructing 3D geometrical models of sources, where they are defined by 2D planes and/or grid points with an average spacing of 1 km. Points created using polygrid function (Sattari 2022) and p_poly_dist and p_poly_dist1 functions (Yoshpe 2022). The width of each source is defined by which ever value is lower out of: (1) its width as defined by an empirical scaling relation with source length (Leonard 2010) or (2) if it is intersected and cut by another source. Analysis of the latter performed using the function ‘fault intersect,’ which requires Surface Intersection function (Tuszynski 2022). The revised area of a source that is intersected is input into the MSSD.xls spreadsheet to revise source geometry. Returns variable ‘fault_geom_1,’ where grid points are sorted by fault or multifault, ‘sec_geom_1’ where grid points are sorted by section, 'and ‘fault_geometry_points_1’ where sources are defined by planes. Planes also stored as csv file MSSD_source_geometry'
 
@@ -81,7 +80,7 @@ MSSD_sourcegeom/fault_intersect_figure.m: Option to plot 3D geometrical model of
 
 MSSD_sourcegeom/floating_rupture_figure.m: Option to plot 3D geometrical model of the distribution of a source’s events in the stochastic event catalogs once they have been randomly floated on the source. Figure plotted for source defined by 'source_id' in code. Requires source2site functions.
 
-2.) MSSD Source Calcs
+### 2.) MSSD Source Calcs
 
 MSSD_sourcecalcs/MSSD_sourcecalcs.m: Takes fault geometry, geodetic extension rates, hanging-wall flexure calculations, and Leonard (2010) scaling relationships, and uses them to calculate fault slip rates and recurrence intervals through 10000 Monte Carlo simulations through MSSD logic tree (Williams et al 2021b). Results in terms of mean and 1 standard deviation can be saved as ‘MSSD sources_Calc’ and written into MSSD spreadsheet. For faults with slip rates estimated from the offset seismic reflector, slip rates are initially estimated from the systems-based approach, preserved in variable slip_rate_nb.sr, and then replaced with offset reflector values.
 
@@ -93,9 +92,9 @@ Generate_MATfile.m: With MSSD source geometry and calculations complete, store d
 
 !Any changes to MSSD files should be saved to MSSD.xlsx and relevant .csv files so it can be updated for the MSSD shape files!
 
-3.) Stochastic Event Catalogs
+### 3.) Stochastic Event Catalogs
 
-(a) Areal source Catalogs
+#### 3a) Areal source Catalogs
 
 syncat_bg/new_SZ_GR_Relation.xlsx: Derive a- and b-values of the G-R relationship for new areal source zones in areas not covered by Poggi et al (2017) based on their area and G-R parameters of stable carton seismicity from Fenton and Boomer (2006).
 
@@ -112,7 +111,7 @@ syncat_bg/inMalawi-GR.xlsx: Spreadsheet for a-values of areal sources, scaled fo
 syncat_bg/GR_EastAfrica_GEM.m: Option to plot ISC catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. This can be saved to variable 'GR_TintiMulargia' for plotting in MSSD_comb.
 
 
-(b) MSSD Direct
+#### 3b) MSSD Direct
 
 syncat_MSSD/rupture_weighting.m: Script for simulating stochastic catalog of earthquakes as defined by a direct interpretation of the earthquake magnitudes and recurrence intervals in the MSSD and Poission interevent times. Runs for all source combinations of 'section', 'fault', and 'multi fault sources' to determine best-fit w combination to regional b-value. This combination should be updated in syncat_PSHA_MSSD_input.xlsx. Outputs can be saved in 'EQCAT_comb.mat' and'r_weighting_results.csv' and results plotted in figures.
 
@@ -120,18 +119,18 @@ syncat_MSSD/syncat_MSSD.m: Runs as above for selected source combination. Return
 
 syncat_MSSD/syncat_MSSD_analysis.m: Optional. For plotting results of EQCAT such as magnitude-frequency distribution of record and comparison of sources moment rates. Also calculates and compares analytical and event-catalog moment rate of each source and plots. Saves in variable 'syncat_comparsion.mat' which can be used on file 'MSSD_comb.'
 
-(c) MSSD Adapted
+#### 3c) MSSD Adapted
 
 syncat_MSSD_adapted/syncat_AdaptedMSSD_em.m:  Script for simulating stochastic catalog of earthquakes as defined by slip rate and area of sources in ‘MSSD_AdaptedSources,’ and the methods described in Youngs and Coppersmith (1985) and Goda and Sharipov, A.(2021). Uses function ‘characteristic_magnitude_YC1985’ and returns variable ‘MSSD_Catalog_Adapated_em’ where the event catalog is stored under ‘StochasticEventCatalog.’ G-R or char behaviour or length or crust limited fault widths are considered separately in distinct catalogs 
 
 syncat_MSSD_adapted/syncat_AdaptedMSSD_analysis_em.m:  Optional. As above but for plotting analysis of StochasticEventCatalog_em. Includes plotting theoretical and catalog Y&C85 mfd curves for a single source.
 
-(d) MSSD_comb
+#### 3d) MSSD_comb
 
 mssd_comb: Optional. For combining Direct MSSD, all AdaptedMSSD_em, and bg catalog together into one 10 million year long catalog for analysis. Includes plotting MFD of all catalogs and checking respective moment rates. Also for sampling MSSD-combined in 50 year intervals and and comparing it to the SSA-GEM catalog (using syncat_bg.mat and GR_TintiMulargia.mat created in syncat_bg folder) and geodetic models (as stored in misc_functions/geo_mo_rate).
 
 
-4.) GMPE
+### 4.) GMPE
 
 This folder stores GMPE functions that are assessed during the PSHA. Note, these codes DO NOT need to be run before PSHA. GMPE selection is made in syncat_PSHA_MSSD_input.xlsx
 
@@ -141,19 +140,19 @@ GMPE/GMPE_figure: Create figure to compare selected GMPE for a single hypothetic
 
 GMPE/seismicVelocityComparisonPlot: Plot 1D seismic velocity models for Malawi from Ebinger et al 2019 and Stevens et al 2021. Also compares to Boore et al 2016 curve for active stable crust. Uses data stored in vp.csv and MalawiSeismicVelocityComparison.xlsx
 
-5.) PSHA
+### 5.) PSHA
 
-***NOTE*** Require evaluating background catalog and all 5 MSSD catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/). These codes may therefore require adaption for use elsewhere.
+*** Require evaluating background catalog and all 5 MSSD catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/). These codes may therefore require adaption for use elsewhere. ***
 
-#### Each script is identical apart from the ‘num_par’ parameter which specifies which catalog interval it assesses. Use ‘par_opts’ variable to change how catalog is assessed ####
+*** Each script is identical apart from the ‘num_par’ parameter which specifies which catalog interval it assesses. Use ‘par_opts’ variable to change how catalog is assessed ***
 
-5a) PSHA Site
+#### 5a) PSHA Site
 
 psha_site_em/PSHA_MSSD_sitexx.m: Site specific PSHA for Malawi. Returns ground motions at site for interval of stochastic event catalogs as denoted by xx. Each event in catalog is assessed using all ground motion prediction equations selected, vs30 =300 m/s or USGS value, and vs30=760 m/s and run using functions Source2Site, Source2Site3, GMPE Malawi. Runs first for background catalog, then for MSSD-based catalogs. Ground motions for each catalog are assessed over multiple spectral accelerations, and multiple sites can be assessed. Only 'num_need' ground motions are stored, with num_need determined by the length of the catalog and minimum return period assessed (currently set to 100 years, can be altered in syncat_PSHA_MSSD_input.xlsx). The num_need ground motions that are stored are iteratively updated as the catalog is assessed to stop file sizes becoming too large. They are then stored as 'AMAX_GM_xx' and AMAX_GM_bg_xx' for further analysis. In addition, the magnitude, GMPE, and source2site distances for the num_need largest ground motions are stored for use during disaggregation analysis.
 
 psha_site_em/PSHA_MSSD_site_figures.m: Combines ground motions from all parallelisations, and then samples only num_need. Uses data for site-specific PSHA plots: (1) seismic hazard curves, (2) uniform spectra, (3) disagg plots. Since an ensemble modelling approach used, seismic hazard curves can be plotted for all event-catalogs-GMPE selection, and for a given PoE (currently 2% and 10% PoE in 50 years) the distribution of ground motions plotted using a beta distribution). *Option to plot data from previously run PSHA codes by loading GM_20220221* Otherwise new results from subcatalogs should be combined by uncommenting relevant text. Dissagg plots require functions disagg_MSSD_JW and voxel (Joel, 2022).
 
-5b) PSHA Maps
+#### 5b) PSHA Maps
 
 psha_map/PSHAmap_MSSD_xx.m: PSHA code for generating Malawi PSHA Maps. Analysis only performed for one spectral acceleration (currently set as PGA). Maps created by performing site specific for multiple sites with grid spacing as defined in syncat_PSHA_MSSD_input.xls, USGS vs30 value and 760 m/s, and for PGA only. Code run over background and MSSD-based catalog interval as defined by xx and considers each GMPE. As with site-specific PSHA, only num_need ground motions are stored to prevent excessive file sizes. 
 
@@ -164,7 +163,7 @@ psha_map/psha_map_comparison/hodge_2015_psha_comparison.m: Optional. Script to r
 psha_map/psha_map_comparison/gem_psha_comparison.m: Optional. Compares PSHA maps to those produced by GEM (Poggi et al 2017) and Hodge et al (2015). Data from gem stored in folder in psha_map/gem_gm.mat. Note this data is for 2% and 10% PoE only. For option to combine with figure with Hodge 2015 maps comparison, hodge_2015_psha_comparison must be run first. Also provides some quantitative comparisons between GEM and MSSD PSHA maps.
 
 
-References (Literature)
+## References (Literature)
 
 Allen, T. I., & Wald, D. J. (2009). On the use of high-resolution topographic data as a proxy for seismic site conditions (VS 30). Bulletin of the Seismological Society of America, 99(2A), 935-943.
 
@@ -206,7 +205,7 @@ Williams, J. N., Werner, M. J., Goda. K., Wedmore, L. N., De Risi R., Biggs, J.,
 
 Youngs, R. R., & Coppersmith, K. J. (1985). Implications of fault slip rates and earthquake recurrence models to probabilistic seismic hazard estimates. Bulletin of the Seismological society of America, 75(4), 939-964.
 
-References (Matlab Functions)
+## References (Matlab Functions)
 
 Crameri, F. (2018). Scientific colour-maps. Zenodo. <http://doi.org/10.5281/zenodo.1243862>
 
