@@ -5,11 +5,27 @@ Last Edited by Jack Williams 14/03/22 (jack.williams@otago.ac.nz)
 The following describes the necessary files and steps to (1) generate the Malawi Seismogenic Source Database (MSSD; Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022).
 
 Codes are written in MATLAB and require the following toolboxes:
-#Image Processing
-#Mapping Toolbox
+# Image Processing
+# Mapping Toolbox
 
 
 Input files and folders:
+
+#### THE FOLLOWING INPUT FILES ARE STORED ON ZENODO AND MUST BE DOWNLOADED AND STORED IN PATH AS SHOWN PRIOR TO RUNNING CODES ####
+
+syncat_MSSD/EQCAT_comb.mat: Matab file for MSSD Direct catalog for all possible rupture weightings
+
+psha_MAP_em/GM_MSSD_em_20220302: Ground motions needed to plot PSHA maps
+
+psha_site_em/GM_MSSD_em_20220302.mat: Ground motions needed to plot PSHA-site analysis figures
+
+mssd_comb.mat: Matlab file for combined MSSD Direct and Adapted MSSD catalogs
+
+syncat_adaptedMSSD/MSSD_Catalog_Adapted_em.mat: Matlab file for Adapated MSSD event catalog
+
+syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
+
+#######
 
 syncat_PSHA_MSSD_input.xls: Main spreadsheet for editing MSSD and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MMSD_input.’
 
@@ -189,7 +205,6 @@ Williams, J. N., Werner, M. J., Goda. K., Wedmore, L. N., De Risi R., Biggs, J.,
 Youngs, R. R., & Coppersmith, K. J. (1985). Implications of fault slip rates and earthquake recurrence models to probabilistic seismic hazard estimates. Bulletin of the Seismological society of America, 75(4), 939-964.
 
 References (Matlab Functions)
-
 
 Crameri, F. (2018). Scientific colour-maps. Zenodo. <http://doi.org/10.5281/zenodo.1243862>
 
