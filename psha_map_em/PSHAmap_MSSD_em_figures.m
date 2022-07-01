@@ -3,7 +3,11 @@
 mydir  = pwd; idcs   = strfind(mydir,'/');
 addpath(mydir(1:idcs(end)-1));
 
-load('syncat_PSHA_MSSD_input','NumSimu','vs30_site_ref','prob_level','obs_duration','num_GMPEindex',...
+%add path to GM from Blue Crystal Run Updated as necessary
+addpath([mydir(1:idcs(end-1)-1),'/psha_stored_gm/20220302_GM']);
+
+
+load('syncat_PSHA_MSSM_input','NumSimu','vs30_site_ref','prob_level','obs_duration','num_GMPEindex',...
     'lower_return_period','num_need','syncat_name','par_opts','Region','PSHA_Zone',...
     'site_corner_SW','site_corner_NE','site_grid_interval','T_map','site','site_name');
 
@@ -18,15 +22,10 @@ site = [Lat_site(:) Lon_site(:)];
 
 num_site = size(site,1); num_syncat=5;
 
-%load previously run PSHA simulations to plot ground motions, and go to section
-% 'Seismic Hazard fractiles'
+%if code run before, load sorted and clean ground motions and skip straight
+%to 'Seismic Hazard fractiles'
+load GM_MSSM_em_20220302
 
-load GM_MSSD_em_20220302 %NOTE THIS FILE NEEDS TO BE DOWNLOADED FROM ZENODO (see readme)
-
-%If assessing new PSHA simulations that have been run using catalog split by num_par
-%uncomment following text so that different sub-catalogs can be combined
-
-%{
 %% load and combine results from each paralleisation
 
 tmp_GM_bg=cell(num_GMPEindex,1); tmp_GM_bg_ref=cell(num_GMPEindex,1);
@@ -59,7 +58,7 @@ for pp=1:length(par_opts)
    
    load(strcat('AMAX_GM_fs_',string(par_opts(pp))))
    
-   for ss=1:num_syncat %for each MSSD syncat
+   for ss=1:num_syncat %for each MSSM syncat
        if floor(pp/2)~=pp/2 
            tmp_GM_fs{ss}={}; tmp_GM_fs_ref{ss}={}; 
            tmp_GM_fs{ss}=single(zeros(1,num_site,num_GMPEindex)); tmp_GM_fs_ref{ss}=single(zeros(1,num_site,num_GMPEindex));
@@ -118,8 +117,8 @@ for ss=1:num_syncat
     end
 end
 
-%save('GM_MSSD_em_20220302','GM_bg','GM_bg_ref','GM_fs','GM_fs_ref','GM_cb','GM_cb_ref','-v7.3');
-%}
+%save('GM_MSSM_em_20220302','GM_bg','GM_bg_ref','GM_fs','GM_fs_ref','GM_cb','GM_cb_ref','-v7.3');
+
 %% Seismic hazard map fractiles
 
 PSA_fractile_CDF_bg = zeros(length(prob_level),num_site,num_GMPEindex); PSA_fractile_CDF_bg_ref = zeros(length(prob_level),num_site,num_GMPEindex);
@@ -155,7 +154,7 @@ for ii = 1:length(prob_level)
         end
     end
     
-    %Difference between G-R and (1) Direct MSSD and (2) Char ground motions
+    %Difference between G-R and (1) Direct MSSM and (2) Char ground motions
     %For char and G-R length limited cases, and Boore 2014 GMM   
     psha_comp(ii,:,:)=vertcat(PSA_fractile_CDF_cb(ii,:,9)-PSA_fractile_CDF_cb(ii,:,1),...
     PSA_fractile_CDF_cb(ii,:,9)-PSA_fractile_CDF_cb(ii,:,5));
@@ -209,8 +208,8 @@ load LakeMalawiBorder
 LakeMalawi = shaperead('malawi_lake.shp');
 LakeMalawiCoord = [LakeMalawi.Y(1,1:end-1)' LakeMalawi.X(1,1:end-1)'];
 
-MSSD = shaperead('MSSD_fault.shp');%Update if MSSD is revised
-num_traces = length(MSSD);
+MSSM = shaperead('MSSM_Faults.shp');%Update if MSSM is revised
+num_traces = length(MSSM);
 
 cmap = crameri('batlow');
 
@@ -246,7 +245,7 @@ figure (1000)
 tiledlayout(2,3,'tilespacing','compact')
 
 plabel_opt=strcat(["10% PoE in 50 years","2% PoE in 50 years"]);
-label_opt=vertcat(strcat(["(a) Areal Sources","(b) MSSD Sources","(c) Combined"]),strcat(["(d) Areal Sources","(e) MSSD Sources","(f) Combined"]));
+label_opt=vertcat(strcat(["(a) Areal Sources","(b) MSSM Sources","(c) Combined"]),strcat(["(d) Areal Sources","(e) MSSM Sources","(f) Combined"]));
 
 
 for ii = 1:length(prob_level)
@@ -278,8 +277,7 @@ for ii = 1:length(prob_level)
     plot3(LakeMalawiBorder(:,2),LakeMalawiBorder(:,1),1000*ones(length(LakeMalawiBorder),1),'k-');hold on
     hold on; caxis([0.0 0.8]); set(gca,'XTick',[], 'YTick', []); set(gca,'fontsize',11);
     for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.75); hold on;
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;
     end
     
     plot3(site_spec(:,2),site_spec(:,1),1000*ones(length(site_spec),1),'ks','markerfacecolor','w','markersize',7);
@@ -294,9 +292,7 @@ for ii = 1:length(prob_level)
     set(gca,'XTick',[], 'YTick', [])
     hold on; caxis([0.0 0.8]); colormap(cmap); h5=colorbar; h5.Label.String='PGA (g)'; set(gca,'fontsize',11);
     for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.75); hold on;
-         
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;    
     end
    plot3(site_spec(:,2),site_spec(:,1),1000*ones(length(site_spec),1),'ks','markerfacecolor','w','markersize',7);
     
@@ -315,7 +311,7 @@ figure (1001)
 plevel=1;% 10% PoE in 50 years
 %plevel=2;% 2% PoE in 50 years
 
-label_opt=vertcat(strcat(["(a) 10% PoE in 50 years", "(b) Interquartile Range","(c) CoV"]),strcat(["(d) GR-MSSD Direct", "(e) GR-Char","(f) Layer Limited-Length Limited"]));
+label_opt=vertcat(strcat(["(a) 10% PoE in 50 years", "(b) Interquartile Range","(c) CoV"]),strcat(["(d) GR-MSSM Direct", "(e) GR-Char","(f) Layer Limited-Length Limited"]));
 
 tiledlayout(2,3,'tilespacing','tight')
 
@@ -357,8 +353,7 @@ for ii = 1:3
     colormap(gca,cmap1); h4=colorbar; h4.Label.String=tmp6b;
     
     for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),tmp6c,'linewidth',0.75); hold on;
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
     end
     
     if ii==1
@@ -383,8 +378,7 @@ for ii = 1:3
     plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'k-');
     hold on; caxis([-0.4 0.4]); colormap(gca,cmap);  set(gca,'XTick',[], 'YTick', [],'fontsize',11,'TitleFontSizeMultiplier',1.09);
     for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.75); hold on;
+           plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
     end
 
     if ii==3
