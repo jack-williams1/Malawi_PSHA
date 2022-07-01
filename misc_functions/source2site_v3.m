@@ -1,11 +1,11 @@
 % RANDOMLY FLOAT RUPTURES ON FAULT PLANE
 
 % Associate ruptures with grid points from faultgrid_wgs84
-% Ruptures from Adapted MSSD event catalog 
+% Ruptures from Adapted MSSM event catalog 
 % Rupture position constrain by fault length and section width
 % For events with Mw>5.4
 
-function [gp]= source2site_v3(syncat_ijk,faultgrid_wgs84_1,faultgrid_wgs84_2,num_fault,num_multi_fault,num_MSSD,grid_indx1,grid_indx2)
+function [gp]= source2site_v3(syncat_ijk,faultgrid_wgs84_1,faultgrid_wgs84_2,num_fault,num_multi_fault,num_MSSM,grid_indx1,grid_indx2)
  
 clear gp gp_tmp gp_tmp1
 
@@ -14,7 +14,7 @@ rigidity = 33*10^9;
 %emperical constants from Leonard 2010
 c1=17.5; c2 = 3.8*10^-5; a=3;  b=6.1;
 
-    %clear gp_tmp gp_tmp1 source_id m_flt_indx flt_all_indx flt_indx mssd_indx dip
+    %clear gp_tmp gp_tmp1 source_id m_flt_indx flt_all_indx flt_indx MSSM_indx dip
     %clear l w r_area z grd_indx source_pts source_geom bound bound_top l_yy l_yy_deg 
     %clear nst rst rst_sp M I gp_check
 
@@ -32,7 +32,7 @@ c1=17.5; c2 = 3.8*10^-5; a=3;  b=6.1;
     dip = num_fault(flt_indx,8); ttd = num_fault(flt_indx,11);
     end
     
-    mssd_indx =  find(num_MSSD(:,1)==source_id);%for indexing MSSD
+    MSSM_indx =  find(num_MSSM(:,1)==source_id);%for indexing MSSM
    
    %Define rupture geomety using inverse of Leonard 2010 equations
    l=10^((log10(10^(1.5*syncat_ijk(3)+9.05))-1.5*log10(c1)-log10(c2*rigidity))*2/5)/1000;
@@ -45,12 +45,12 @@ c1=17.5; c2 = 3.8*10^-5; a=3;  b=6.1;
     if syncat_ijk(5)==1  %Partial fault width, use fault_geom_1 model
         grd_indx = find(syncat_ijk(4)==grid_indx1(:));
         source_pts = faultgrid_wgs84_1{grd_indx};
-        s_area =  num_MSSD(mssd_indx,9);
+        s_area =  num_MSSM(MSSM_indx,9);
 
     else %Full crust fault width, use fault_geom_2 model
         grd_indx = find(syncat_ijk(4)==grid_indx2(:));
         source_pts = faultgrid_wgs84_2{grd_indx};
-        s_area =  num_MSSD(mssd_indx,11);
+        s_area =  num_MSSM(MSSM_indx,11);
     end
      
     indx=1;
@@ -77,11 +77,11 @@ c1=17.5; c2 = 3.8*10^-5; a=3;  b=6.1;
     %if  magnitude is close to or bigger than Mmax due to +0.15 variation in 
     %Stochastic Event Catalog method, take entire source geometry
     
-        if (syncat_ijk(3)+0.05)>=num_MSSD(mssd_indx,12) && syncat_ijk(5)==1
+        if (syncat_ijk(3)+0.05)>=num_MSSM(MSSM_indx,12) && syncat_ijk(5)==1
             gp=source_pts(:,1:3);  gp_check = size(source_pts,1)*(1/cos(dip*pi/180))/r_area;
             return %function can end here
             
-        elseif (syncat_ijk(3)>+0.05)>=num_MSSD(mssd_indx,12) && syncat_ijk(5)==2
+        elseif (syncat_ijk(3)>+0.05)>=num_MSSM(MSSM_indx,12) && syncat_ijk(5)==2
             gp=gp_tmp(:,1:3); gp_check = size(gp_tmp,1)*(1/cos(dip*pi/180))/r_area;
             return  %function can end here
             
@@ -112,7 +112,7 @@ c1=17.5; c2 = 3.8*10^-5; a=3;  b=6.1;
      bound_top=find(gp_tmp(bound,3)<(0.7+min(gp_tmp(bound,3)))); %Find top of polygon
     end
    
-    l_yy=abs(l*cos(num_MSSD(mssd_indx,4)*pi/180)); %N-S extent of rupture (in km)
+    l_yy=abs(l*cos(num_MSSM(MSSM_indx,4)*pi/180)); %N-S extent of rupture (in km)
     l_yy_deg=km2deg(l_yy);%N-S extent of rupture (in degrees)
     nst = max(gp_tmp(bound(bound_top),1))-l_yy_deg;%northern most south tip of rupture
        
