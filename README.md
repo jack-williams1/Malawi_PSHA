@@ -131,7 +131,7 @@ syncat_MSSM_adapted/syncat_AdaptedMSSM_analysis_em.m:  Optional. As above but fo
 
 #### 3d) MSSM_comb
 
-mssd_comb: Optional. For combining Direct MSSM, all AdaptedMSSM_em, and bg catalog together into one 10 million year long catalog for analysis. Includes plotting MFD of all catalogs and checking respective moment rates. Also for sampling MSSM-combined in 50 year intervals and and comparing it to the SSA-GEM catalog (using syncat_bg.mat and GR_TintiMulargia.mat created in syncat_bg folder) and geodetic models (as stored in misc_functions/geo_mo_rate).
+mssm_comb: Optional. For combining Direct MSSM, all AdaptedMSSM_em, and bg catalog together into one 10 million year long catalog for analysis. Includes plotting MFD of all catalogs and checking respective moment rates. Also for sampling MSSM-combined in 50 year intervals and and comparing it to the SSA-GEM catalog (using syncat_bg.mat and GR_TintiMulargia.mat created in syncat_bg folder) and geodetic models (as stored in misc_functions/geo_mo_rate).
 
 
 ### 4.) GMPE
