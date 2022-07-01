@@ -7,7 +7,7 @@ addpath(mydir(1:idcs(end)-1)); addpath(mydir(1:idcs(end-1)-1));
 addpath([mydir(1:idcs(end-1)-1) '/misc_functions']);
 addpath([mydir(1:idcs(end-1)-1) '/gis_files']);
 
-load('syncat_PSHA_MSSD_input','Region','site_grid_interval','vs30_site_ref','prob_level')
+load('syncat_PSHA_MSSM_input','Region','site_grid_interval','vs30_site_ref','prob_level')
 
 malawi_Lon_w=Region(1); malawi_Lon_e=Region(2);
 malawi_Lat_s=Region(3); malawi_Lat_n=Region(4);
@@ -49,16 +49,16 @@ load map_data_EastAfrica.mat;
 ellipsoid = almanac('earth','wgs84','meters');
 utms = defaultm('utm'); utms.zone = '36L'; utms.geoid = ellipsoid; 
 utms.flatlimit = []; utms.maplatlimit = []; utms = defaultm(utms);
-%Read in MSSD shape file, update if necessary
-MSSD = shaperead('MSSD_fault.shp');
-num_traces = length(MSSD);
+%Read in MSSM shape file, update if necessary
+MSSM = shaperead('MSSM_Faults.shp');
+num_traces = length(MSSM);
 
 LakeMalawi = shaperead('malawi_lake.shp');
 LakeMalawiCoord = [LakeMalawi.Y(1,1:end-1)' LakeMalawi.X(1,1:end-1)'];
 load LakeMalawiBorder
 
 plabel_opt=strcat(["10% PoE in 50 years","2% PoE in 50 years"]);
-label_opt=vertcat(strcat(["(a) P2017","(b) MSSD","(c) MSSD-P2017"]),strcat(["(d) H2015","(e) MSSD","(f) MSSD-H2015"]));
+label_opt=vertcat(strcat(["(a) P2017","(b) MSSM","(c) MSSM-P2017"]),strcat(["(d) H2015","(e) MSSM","(f) MSSM-H2015"]));
 
 % Load in H2015 values from hodge_psha_comparison.m !MAKE SURE IS MOST RECENT VALUES!
 load h2015_map_pga
@@ -131,7 +131,7 @@ plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'w-');
 plot3(LakeMalawiBorder(:,2),LakeMalawiBorder(:,1),1000*ones(length(LakeMalawiBorder),1),'k-');hold on
 hold on; colormap(gca,cmap); caxis([0.0 0.4]); set(gca,'fontsize',11); 
  
-%(b) MSSD
+%(b) MSSM
 nexttile
 surf(malawi_lon_site_vec,malawi_lat_site_vec,tmp1{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region); title(label_opt(pp,2),'fontweight','normal'); subtitle([plabel_opt(pp),vs_val]);        
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
@@ -140,12 +140,11 @@ plot3(LakeMalawiBorder(:,2),LakeMalawiBorder(:,1),1000*ones(length(LakeMalawiBor
 hold on;  colormap(gca,cmap); caxis([0.0 0.4]); h2=colorbar; h2.Label.String = 'PGA (g)';
 set(gca,'XTick',[], 'YTick', [],'fontsize',11,'TitleFontSizeMultiplier',1.09);
         for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
         end
 hold off
 
-%(c) MSSD-P2017               
+%(c) MSSM-P2017               
 nexttile
 cmap1 = crameri('vik'); 
 surf(malawi_lon_site_vec,malawi_lat_site_vec,tmp2{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region); title([label_opt(pp,3),''],'fontweight','normal');         
@@ -154,8 +153,7 @@ fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord
 hold on;  colormap(gca,cmap1);  h3=colorbar; h3.Label.String = 'PGA difference (g)'; caxis([-0.4 0.4]);
 set(gca,'XTick',[], 'YTick', [],'fontsize',11,'TitleFontSizeMultiplier',1.09);
       for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
       end
       
 
@@ -183,7 +181,7 @@ hold on; colormap(gca,cmap); caxis([0.0 0.8]); set(gca,'fontsize',11);
 
 hold off
 
-%(e) MSSD
+%(e) MSSM
 nexttile
 surf(malawi_lon_site_vec,malawi_lat_site_vec,tmp1{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title(label_opt(pp,2),'fontweight','normal'); subtitle([plabel_opt(pp),vs_val]);      
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
@@ -192,25 +190,22 @@ plot3(LakeMalawiBorder(:,2),LakeMalawiBorder(:,1),1000*ones(length(LakeMalawiBor
 hold on;  colormap(gca,cmap); caxis([0.0 0.8]); h2=colorbar; h2.Label.String = 'PGA (g)';
 set(gca,'XTick',[], 'YTick', [],'fontsize',11,'TitleFontSizeMultiplier',1.09); 
         for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+            plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
         end
         
 hold off  
 
-%(f) MSSD-H2015
+%(f) MSSM-H2015
 nexttile
 cmap1 = crameri('vik'); 
-surf(h15_mssd_malawi_lon_site_vec,h15_mssd_malawi_lat_site_vec,h15_tmp2{1}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title([label_opt(pp,3),''],'fontweight','normal');      
+surf(h15_MSSM_malawi_lon_site_vec,h15_MSSM_malawi_lat_site_vec,h15_tmp2{1}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title([label_opt(pp,3),''],'fontweight','normal');      
 plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'k-');
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
 hold on;  colormap(gca,cmap1);  h3=colorbar; h3.Label.String = 'PGA difference (g)'; caxis([-0.4 0.4]);
 set(gca,'XTick',[], 'YTick', [],'fontsize',11,'TitleFontSizeMultiplier',1.09); 
       %{
       for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
-      end
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
       %}
 
   
@@ -218,7 +213,7 @@ set(gcf,'position',[785 84 838 895])
 
 %% Plot GEM comparison for both prob_levels
 
-label_opt=vertcat(strcat(["(a) GEM","(b) MSSD","(c) MSSD-GEM"]),strcat(["(d) GEM","(e) MSSD","(f) MSSD-GEM"]));
+label_opt=vertcat(strcat(["(a) GEM","(b) MSSM","(c) MSSM-GEM"]),strcat(["(d) GEM","(e) MSSM","(f) MSSM-GEM"]));
 cmap = crameri('batlow');
 figure(2);
 tiledlayout(2,3,'tilespacing','compact')
@@ -239,8 +234,7 @@ plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'w-');
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
 hold on;  colormap(gca,cmap); caxis([0.0 1]); h2=colorbar; h2.Label.String = 'PGA (g)';
         for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+            plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
         end
       
 hold off        
@@ -251,8 +245,7 @@ plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'k-');
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
 hold on;  colormap(gca,cmap1);  h3=colorbar; h3.Label.String = 'PGA difference (g)'; caxis([-0.4 0.4]);
       for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+            plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
       end
       
 cmap = crameri('batlow');
@@ -268,11 +261,11 @@ set(gcf,'position',[785 84 838 895])
 
 gem_analysis(pp,1:2)=[median(gem_psha_Malawi_array{pp}(:,3)) mean(gem_psha_Malawi_array{pp}(:,3))];    
      
-mssd_pga=reshape(s_prepare_pga_array1{pp},[length(malawi_lon_site_vec)*length(malawi_lat_site_vec),1]);  
-mssd_analysis(pp,1:3) =  [median(mssd_pga) mean(mssd_pga) max(mssd_pga)];
+MSSM_pga=reshape(s_prepare_pga_array1{pp},[length(malawi_lon_site_vec)*length(malawi_lat_site_vec),1]);  
+MSSM_analysis(pp,1:3) =  [median(MSSM_pga) mean(MSSM_pga) max(MSSM_pga)];
 
-mssd_pga_ref=reshape(s_prepare_pga_array1_ref{pp},[length(malawi_lon_site_vec)*length(malawi_lat_site_vec),1]);  
-mssd_analysis_ref(pp,1:3) =  [median(mssd_pga_ref) mean(mssd_pga_ref) max(mssd_pga_ref)];
+MSSM_pga_ref=reshape(s_prepare_pga_array1_ref{pp},[length(malawi_lon_site_vec)*length(malawi_lat_site_vec),1]);  
+MSSM_analysis_ref(pp,1:3) =  [median(MSSM_pga_ref) mean(MSSM_pga_ref) max(MSSM_pga_ref)];
 
 pga_ratio_tmp=reshape(pga_ratio{pp},[length(malawi_lon_site_vec)*length(malawi_lat_site_vec),1]);
 pga_ratio_analysis(pp,1:3) =[median(pga_ratio_tmp) mean(pga_ratio_tmp) max(pga_ratio_tmp)];

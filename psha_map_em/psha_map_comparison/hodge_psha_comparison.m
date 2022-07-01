@@ -7,35 +7,35 @@ addpath(mydir(1:idcs(end-1)-1));
 addpath([mydir(1:idcs(end-1)-1) '/misc_functions']);
 addpath([mydir(1:idcs(end-1)-1) '/gis_files']);
 
-load('syncat_PSHA_MSSD_input','Region','site_grid_interval','vs30_site_ref','prob_level')
+load('syncat_PSHA_MSSM_input','Region','site_grid_interval','vs30_site_ref','prob_level')
 prob_level=prob_level(2); %Hodge et al 2015 only compared for 2% PoE in 50 years
 
 % Load PSHA files from Hodge 2015
 load h2015_map_values
   
 
-%% Create new grid for MSSD as grid interval is different from Hodge et al 2015
+%% Create new grid for MSSM as grid interval is different from Hodge et al 2015
 
-%find overlapping region between MSSD and Hodge2015 maps
+%find overlapping region between MSSM and Hodge2015 maps
 lat_range = [max(min(site(:,1)),Region(3)) min(max(site(:,1)),Region(4))];
 lon_range = [max(min(site(:,2)),Region(1)) min(max(site(:,2)),Region(2))];    
 
-mssd_malawi_lat_site_vec = lat_range(1):site_grid_interval:lat_range(2); %can be changed for more accurate plotting
-mssd_malawi_lon_site_vec = lon_range(1):site_grid_interval:lon_range(2);
-[Lat_site,Lon_site] = meshgrid(mssd_malawi_lat_site_vec,mssd_malawi_lon_site_vec);
-mssd_site = [Lat_site(:) Lon_site(:)];
+MSSM_malawi_lat_site_vec = lat_range(1):site_grid_interval:lat_range(2); %can be changed for more accurate plotting
+MSSM_malawi_lon_site_vec = lon_range(1):site_grid_interval:lon_range(2);
+[Lat_site,Lon_site] = meshgrid(MSSM_malawi_lat_site_vec,MSSM_malawi_lon_site_vec);
+MSSM_site = [Lat_site(:) Lon_site(:)];
 
 for pp=1:length(prob_level)
 
 clear pga_mesh
-    for ii=1:length(mssd_site)
-         [~,mindiff_id] = min((mssd_site(ii,1)-site(:,1)).^2 + (mssd_site(ii,2)-site(:,2)).^2);
-       %Find closes PSHA values to those in MSSD map
+    for ii=1:length(MSSM_site)
+         [~,mindiff_id] = min((MSSM_site(ii,1)-site(:,1)).^2 + (MSSM_site(ii,2)-site(:,2)).^2);
+       %Find closes PSHA values to those in MSSM map
          pga(ii,:) = PSA_fractile_CDF(:,mindiff_id);
          
     end
 
-pga_mesh = reshape(pga,[length(mssd_malawi_lon_site_vec),length(mssd_malawi_lat_site_vec)]);
+pga_mesh = reshape(pga,[length(MSSM_malawi_lon_site_vec),length(MSSM_malawi_lat_site_vec)]);
 pga_meshh{pp} = rot90(pga_mesh,3);
 pga_meshh{pp} = flip(pga_meshh{pp},2);
 
@@ -48,10 +48,10 @@ utms = defaultm('utm'); utms.zone = '36L'; utms.geoid = ellipsoid;
 utms.flatlimit = []; utms.maplatlimit = []; utms = defaultm(utms);
 
 %Read in seismogenic sources geographic extent
-MSSD = shaperead('MSSD_fault.shp');
+MSSM = shaperead('MSSM_Faults.shp');
 h_sources = shaperead('hodge2015faultsources.shp');
 h_sources(1).Name='BMF';
-num_traces = length(MSSD);
+num_traces = length(MSSM);
 
 load map_data_EastAfrica.mat;
 LakeMalawi = shaperead('malawi_lake.shp');
@@ -62,7 +62,7 @@ Region_2 =  [lon_range(1) lon_range(2) -15 lat_range(2)];
 h2015_vs30 = 760; 
 
 plabel_opt=strcat(["2% PoE in 50 years"]);
-label_opt=strcat(["(a) H2015","(b) MSSD","(c) MSSD-H2015"]);
+label_opt=strcat(["(a) H2015","(b) MSSM","(c) MSSM-H2015"]);
 
 
 %% Compare to SAFER-PREPARED PSHA map (USGS vs30 and vs30 ref)
@@ -139,26 +139,24 @@ hold on; colormap(gca,cmap); caxis([0.0 0.8]); h1=colorbar; h1.Label.String = 'P
 hold off
 
 nexttile
-surf(mssd_malawi_lon_site_vec,mssd_malawi_lat_site_vec,tmp1{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title(label_opt(pp,2)); subtitle([plabel_opt(pp),vs_val]); set(gca,'fontsize',13.5);         
+surf(MSSM_malawi_lon_site_vec,MSSM_malawi_lat_site_vec,tmp1{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title(label_opt(pp,2)); subtitle([plabel_opt(pp),vs_val]); set(gca,'fontsize',13.5);         
 plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'w-');
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
 hold on;  colormap(gca,cmap); caxis([0.0 0.8]); h2=colorbar; h2.Label.String = 'PGA (g)';
         for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MSSD(jj).X,MSSD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+            plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
         end
       
 hold off        
 nexttile
 cmap1 = crameri('vik'); 
-surf(mssd_malawi_lon_site_vec,mssd_malawi_lat_site_vec,tmp2{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title([label_opt(pp,3),'']);  set(gca,'fontsize',13.5);        
+surf(MSSM_malawi_lon_site_vec,MSSM_malawi_lat_site_vec,tmp2{pp}); hold on; shading interp; view(0,90); axis equal; axis(Region_2); title([label_opt(pp,3),'']);  set(gca,'fontsize',13.5);        
 plot3(MapData2(:,2),MapData2(:,1),1000*ones(length(MapData2(:,1)),1),'k-');
 fill3(LakeMalawiCoord(:,2),LakeMalawiCoord(:,1),1000*ones(length(LakeMalawiCoord),1),'w');
 hold on;  colormap(gca,cmap1);  h3=colorbar; h3.Label.String = 'PGA difference (g)'; caxis([-0.4 0.4]);
       %{
       for jj = 1:num_traces    
-        [LAT,LON] = minvtran(utms,MAFD(jj).X,MAFD(jj).Y);
-        plot3(LON,LAT,1000*ones(length(LON),1),'r','linewidth',0.7); hold on;
+        plot3(MSSM(jj).X,MSSM(jj).Y,1000*ones(length(MSSM(jj).X),1),'r','linewidth',0.75); hold on;  
       end
       %}
 cmap = crameri('batlow');
@@ -170,9 +168,9 @@ set(gcf,'position',[785 84 838 455])
 
 h2015_pga_ratio_ref=pga_ratio_ref; h2015_pga_ratio=pga_ratio;
 h15_pga_meshh=pga_meshh; h15_prob_level=prob_level;
-h15_mssd_malawi_lat_site_vec=mssd_malawi_lat_site_vec;
-h15_mssd_malawi_lon_site_vec=mssd_malawi_lon_site_vec;
+h15_MSSM_malawi_lat_site_vec=MSSM_malawi_lat_site_vec;
+h15_MSSM_malawi_lon_site_vec=MSSM_malawi_lon_site_vec;
 
 save('h2015_map_pga','XI','YI','ZI_2475yrs','h2015_pga_ratio','h2015_pga_ratio_ref',...
     'h15_prob_level','Region_2','h2015_vs30','h_sources','t_corr_x','t_corr_y',...
-    'h15_mssd_malawi_lat_site_vec','h15_mssd_malawi_lon_site_vec');
+    'h15_MSSM_malawi_lat_site_vec','h15_MSSM_malawi_lon_site_vec');
