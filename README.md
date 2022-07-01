@@ -92,6 +92,10 @@ MSSM_sourcecalcs/nBasinFaultSlipRateCalc: Provides slip rate estimates for intra
 
 MSSM_sourcecalcs/MSSM_sourcecalcplots_nbasincomparison.m: Compares the slip rate probability distributions of intrarift faults in Lake Malawi when estimated from the offset reflector and when estimated from the systems-based approach. Requires: calc_overlap_twonormal (Kowerko 2022)
 
+MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexureCalculations.m: Performs hanging-wall flexural calculations for basins in Malawi as described in Appendix of Williams et al (2021b). Requires estimates for the rheological properties of Malawi's crust and border fault offset, as contained in HangingWallFlexureInputs.xlsx. Stores outputs as 'hangingwallfelxcalcs.mat' 
+
+MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexurePlots.m: Plots hanging-wall flexure strain and crustal profiles as shown in Figure 4 and A3 in Williams et al (2021b). Also plots topographic profiles through basin using digital elevation models and Topotoolbox (Schwanghart and Scherler, 2014) as described in code.
+
 Generate_MATfile.m: With MSSM source geometry and calculations complete, store data in variable MSSM_sources
 
 !Any changes to MSSM files should be saved to MSSM.xlsx and relevant .csv files so it can be updated for the MSSM shape files!
@@ -186,6 +190,8 @@ Muirhead, J. D., Kattenhorn, S. A., Lee, H., Mana, S., Turrin, B. D., Fischer, T
 Poggi, V., Durrheim, R., Tuluka, G. M., Weatherill, G., Gee, R., Pagani, M., ... & Delvaux, D. (2017). Assessing seismic hazard of the East African Rift: a pilot study from GEM and AfricaArray. Bulletin of Earthquake Engineering, 15(11), 4499-4529.
 
 Sandwell, D., Mellors, R., Tong, X., Wei, M., & Wessel, P. (2011). Open radar interferometry software for mapping surface deformation.
+
+Schwanghart, W., & Scherler, D. (2014). TopoToolbox 2–MATLAB-based software for topographic analysis and modeling in Earth surface sciences. Earth Surface Dynamics, 2(1), 1-7.
 
 Shillington, D. J., Scholz, C. A., Chindandali, P. R., Gaherty, J. B., Accardo, N. J., Onyango, E., ... & Nyblade, A. A. (2020). Controls on Rift Faulting in the North Basin of the Malawi (Nyasa) Rift, East Africa. Tectonics, 39(3), e2019TC005633.
 
