@@ -1,4 +1,4 @@
-# Malawi probabilistic seismic hazard analysis (PSHA) using the Malawi Seismogenic Sources Model (MSSM)
+# Malawi probabilistic seismic hazard analysis (PSHA) using the Malawi Seismogenic Source Model (MSSM)
 
 Last Edited by Jack Williams 01/07/22 (jack.williams@otago.ac.nz)
 
@@ -32,7 +32,7 @@ syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
 
 syncat_PSHA_MSSM_input.xls: Main spreadsheet for editing MSSM and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MMSD_input.’
 
-MSSM_sourcecalcs/MSSM.xls: Spreadsheet with data for each source in the Malawi Seismogenic Sources Model. Contains 7 tabs:
+MSSM_sourcecalcs/MSSM.xls: Spreadsheet with data for each source in the Malawi Seismogenic Source Model. Contains 7 tabs:
 
 #1 ‘Leonard 2010’: list of sections, faults, and multi-faults where geometric data is stored to perform slip rate, earthquake magnitude, and recurrence interval calculations using the Leonard 2010 scaling relationships as described in Williams et al (2021a). Uncertainties from extreme ends of logic tree
 
