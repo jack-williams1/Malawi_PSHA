@@ -1,6 +1,6 @@
 # Malawi probabilistic seismic hazard analysis (PSHA) using the Malawi Seismogenic Source Model (MSSM)
 
-Last Edited by Jack Williams 01/07/22 (jack.williams@otago.ac.nz)
+Last Edited by Jack Williams 31/10/22 (jack.williams@otago.ac.nz)
 
 The following describes the necessary files and steps to (1) generate the MSSM (Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022a).
 
@@ -116,9 +116,9 @@ syncat_bg/syncat_bg_analysis.m: Optional script to assess simulated syncat_bg: (
 
 syncat_bg/inMalawi-GR.xlsx: Spreadsheet for a-values of areal sources, scaled for their overlap area in Malawi
 
-syncat_bg/GR_EastAfrica_GEM.m: Option to plot SSA-GEM catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot various event location maps and 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. 
+syncat_bg/GR_EastAfrica_GEM.m: Option to plot the SSA-GEM catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot various event location maps and 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. 
 
-syncat_bg/GR_EastAfrica_GEM_filtered.m: Compares SSA-GEM catalog in Malawi for cases when the 2009 Karonga Earthquakes are and are not included. Described in Appendix A4 in the PSHA manuscript. The 'GR_TintiMulargia' results are also saved here for plotting with MSSM_comb.
+syncat_bg/GR_EastAfrica_GEM_filtered.m: Compares the SSA-GEM catalog in Malawi for cases when the 2009 Karonga Earthquakes are and are not included. Analysis described further in Appendix A4 in the PSHA manuscript. The 'GR_TintiMulargia' results are also saved here for plotting with MSSM_comb.
 
 
 #### 3b) MSSM Direct
