@@ -116,9 +116,9 @@ syncat_bg/syncat_bg_analysis.m: Optional script to assess simulated syncat_bg: (
 
 syncat_bg/inMalawi-GR.xlsx: Spreadsheet for a-values of areal sources, scaled for their overlap area in Malawi
 
-syncat_bg/GR_EastAfrica_GEM.m: Option to plot the SSA-GEM catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot various event location maps and 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. 
+syncat_bg/GR_EastAfrica_GEM.m: Option to plot the SSA-GEM catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot various event location maps and 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. The 'GR_TintiMulargia' results are also saved here for plotting with MSSM_comb.
 
-syncat_bg/GR_EastAfrica_GEM_filtered.m: Compares the SSA-GEM catalog in Malawi for cases when the 2009 Karonga Earthquakes are and are not included. Analysis described further in Appendix A4 in the PSHA manuscript. The 'GR_TintiMulargia' results are also saved here for plotting with MSSM_comb.
+syncat_bg/GR_EastAfrica_GEM_filtered.m: Compares the SSA-GEM catalog for the Rukwa-Malawi source zone (Poggi et al 2017) for cases when the 2009 Karonga Earthquakes are and are not included. Analysis described further in Appendix A4 in the PSHA manuscript. 
 
 
 #### 3b) MSSM Direct
