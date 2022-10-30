@@ -30,7 +30,7 @@ syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
 
 ### The following files are included with this release on Github
 
-syncat_PSHA_MSSM_input.xls: Main spreadsheet for editing MSSM and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MMSD_input.’
+syncat_PSHA_MSSM_input.xls: Main spreadsheet for editing MSSM and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MSSM_input.’
 
 MSSM_sourcecalcs/MSSM.xls: Spreadsheet with data for each source in the Malawi Seismogenic Source Model. Contains 7 tabs:
 
@@ -116,7 +116,9 @@ syncat_bg/syncat_bg_analysis.m: Optional script to assess simulated syncat_bg: (
 
 syncat_bg/inMalawi-GR.xlsx: Spreadsheet for a-values of areal sources, scaled for their overlap area in Malawi
 
-syncat_bg/GR_EastAfrica_GEM.m: Option to plot ISC catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. This can be saved to variable 'GR_TintiMulargia' for plotting in MSSM_comb.
+syncat_bg/GR_EastAfrica_GEM.m: Option to plot SSA-GEM catalog for recorded seismicity in Malawi (Poggi et al 2017), and saves to variable ‘ISC_GEM_EAcatalog_Malawi’. Also to plot various event location maps and 95% confidence intervals for Gutenberg-Richter (G-R) relationship in Malawi using approach described in Tinti & Malaria (1987) and function 'GRrelation_MLEWeichert_EQMATca'. 
+
+syncat_bg/GR_EastAfrica_GEM_filtered.m: Compares SSA-GEM catalog in Malawi for cases when the 2009 Karonga Earthquakes are and are not included. Described in Appendix A4 in the PSHA manuscript. The 'GR_TintiMulargia' results are also saved here for plotting with MSSM_comb.
 
 
 #### 3b) MSSM Direct
