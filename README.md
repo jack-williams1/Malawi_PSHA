@@ -211,7 +211,7 @@ Williams, Jack, Wedmore, Luke, Scholz, Christopher A, Kolawole, Folarin, Wright,
 
 Williams, J. N., Werner, M. J., Goda. K., Wedmore, L. N., De Risi R., Biggs, J., Mdala, H., Dulanya, Z., Fagereng, Å., Chindandali, P.,  Mphepo, F. (2022a) Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi. Submitted to Natural Hazards
 
-Williams, Jack N., Wedmore, Luke N. J., Fagereng, Åke, Werner, Maximilian J., Biggs, Juliet, Mdala, Hassan, Kolawole, Folarin, Shillington, Donna J., Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick R. N., Wright, Lachlan J. M., & Scholz, Christopher A. (2022c). Malawi Seismogenic Source Database (v1.1) [Data set]. DOI: 10.5281/zenodo.6779638
+Williams, Jack N., Wedmore, Luke N. J., Fagereng, Åke, Werner, Maximilian J., Biggs, Juliet, Mdala, Hassan, Kolawole, Folarin, Shillington, Donna J., Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick R. N., Wright, Lachlan J. M., & Scholz, Christopher A. (2022c). Malawi Seismogenic Source Database (v1.2) [Data set]. https://doi.org/10.5281/zenodo.5599616
 
 Williams, J. N., Wedmore, L. N., Scholz, C. A., Kolawole, F., Wright, L. J., Shillington, D. J., ... & Werner, M. J. (2022b). The Malawi Active Fault Database: An Onshore‐Offshore Database for Regional Assessment of Seismic Hazard and Tectonic Evolution. Geochemistry, Geophysics, Geosystems, 23(5), e2022GC010425.
 
