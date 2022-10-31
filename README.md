@@ -12,15 +12,15 @@ Mapping Toolbox
 
 ## Input files and folders:
 
-### The following input files are stored on Zenodo at https://zenodo.org/record/6350793#.Yi7AoC0Rpz9 and must be downloaded and stored in path as shown
+### The following supplementary input files (v1.1) are stored on Zenodo  at https://doi.org/10.5281/zenodo.6350792 and must be downloaded and stored in path as shown
 
 misc_functions/malawi_Vs30_active.txt: USGS slope-based Vs30 values for Malawi (Wald and Allen 2007)
 
 syncat_MSSM/EQCAT_comb.mat: Matab file for MSSM Direct catalog for all possible rupture weightings
 
-psha_MAP_em/GM_MSSM_em_20220302: Ground motions needed to plot PSHA maps
+psha_map_em/GM_MSSM_20221021: Ground motions needed to plot PSHA maps
 
-psha_site_em/GM_MSSM_em_20220302.mat: Ground motions needed to plot PSHA-site analysis figures
+psha_site_em/GM_MSSM_em_20221027.mat: Ground motions needed to plot PSHA-site analysis figures
 
 mssm_comb.mat: Matlab file for combined MSSM Direct and Adapted MSSM catalogs
 
@@ -30,7 +30,7 @@ syncat_bg/syncat_bg.mat: Areal source stochastic event catalog
 
 ### The following files are included with this release on Github
 
-syncat_PSHA_MSSM_input.xls: Main spreadsheet for editing MSSM and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MSSM_input.’
+syncat_PSHA_MSSM_input.xls: Main spreadsheet for editing MSSM and PSHA inputs. Any updates must be saved to the Matlab variable ‘syncat_PSHA_MSSM_input.mat’
 
 MSSM_sourcecalcs/MSSM.xls: Spreadsheet with data for each source in the Malawi Seismogenic Source Model. Contains 7 tabs:
 
@@ -152,7 +152,7 @@ GMPE/seismicVelocityComparisonPlot: Plot 1D seismic velocity models for Malawi f
 
 ### 5.) PSHA
 
-*** Require evaluating background catalog and all 5 MSS< catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/). These codes may therefore require adaption for use elsewhere. ***
+*** Require evaluating background catalog and all 5 MSSM catalogs through 4 GMPE. As a result, analysis is performed by equally dividing the catalog into 16 sub catalogs, and then evaluating these subcatalogs simultaneously on a cluster. These codes are currently set up for use on the Blue Crystal cluster at the University of Bristol (http://www.bris.ac.uk/acrc/). These codes may therefore require adaption for use elsewhere. ***
 
 *** Each script is identical apart from the ‘num_par’ parameter which specifies which catalog interval it assesses. Use ‘par_opts’ variable to change how catalog is assessed ***
 
