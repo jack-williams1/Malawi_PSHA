@@ -2,7 +2,7 @@
 
 Last Edited by Jack Williams 08/02/23 (jack.williams@otago.ac.nz)
 
-Following updates have been made to PSHA codes:
+Very minor updates have been made to PSHA codes since October 2022 releases:
 
 PSHAmap_MSSD_em_figures.m: option added to: (1) change colour axis levels for PSHA maps and (2) show area under Lake Malawi in sensitivity analysis maps.
 
