@@ -1,6 +1,20 @@
 # Malawi probabilistic seismic hazard analysis (PSHA) using the Malawi Seismogenic Source Model (MSSM)
 
-Last Edited by Jack Williams 31/10/22 (jack.williams@otago.ac.nz)
+Last Edited by Jack Williams 08/02/23 (jack.williams@otago.ac.nz)
+
+Following updates have been made to PSHA codes:
+
+PSHAmap_MSSD_em_figures.m: option added to: (1) change colour axis levels for PSHA maps and (2) show area under Lake Malawi in sensitivity analysis maps.
+
+hodge_psha_comparison.m: option added to compare new PSHA maps with Hodge et al (2015) at a 500 year return period.
+
+gem_psha_comparison.m: option added to plot histogram to show distribution of hazard level differences between new PSHA maps and Poggi et al (2017) and Hodge et al (2015) for each site in Malawi grid.
+
+PSHA_MSSM_site_figures_em.m: option added to find proportion of probability mass in deaggregation plots which were generated when epislon in ground motion model sampling was >3.
+
+MSSM_source_aspectratio.m: new plot to show aspect ratio of all MSSM sources. Equivalent to Fig. A7 in the manuscript.
+
+Comments by Jack Williams 31/10/22
 
 The following describes the necessary files and steps to (1) generate the MSSM (Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022a).
 
@@ -166,7 +180,7 @@ psha_site_em/PSHA_MSSM_site_figures.m: Combines ground motions from all parallel
 
 psha_map/PSHAmap_MSSM_xx.m: PSHA code for generating Malawi PSHA Maps. Analysis only performed for one spectral acceleration (currently set as PGA). Maps created by performing site specific for multiple sites with grid spacing as defined in syncat_PSHA_MSSM_input.xls, USGS vs30 value and 760 m/s, and for PGA only. Code run over background and MSSM-based catalog interval as defined by xx and considers each GMPE. As with site-specific PSHA, only num_need ground motions are stored to prevent excessive file sizes. 
 
-psha_map/PSHAmap_MSSM_figures.m: PSHA Maps for Malawi using results from PSHAmap_MSSM_xx.m. Maps plotted in terms of contribution from aerial (background) and MSSM sources. Also option too plot comparison for different on-fault magnitude-frequency distribution comparison (by comparing G-R to MSSM-Direct and characteristic), different fault widths, and PSHA uncertainty maps (in terms of CoV and interquartile range of 20 ground motion values calculated for each site) *Option to plot data from previously run PSHA codes by loading GM_20220302* Otherwise new results from subcatalogs should be combined by uncommenting relevant text. Also option to saves ground motions in txt files so can be compared to Poggi et al (2017) maps and Hodge et al (2015) PSHA maps. Currently set for maps 10% PoE in 50 years and 2% PoE in 50 years.
+psha_map/PSHAmap_MSSM_figures_em.m: PSHA Maps for Malawi using results from PSHAmap_MSSM_xx.m. Maps plotted in terms of contribution from aerial (background) and MSSM sources. Also option too plot comparison for different on-fault magnitude-frequency distribution comparison (by comparing G-R to MSSM-Direct and characteristic), different fault widths, and PSHA uncertainty maps (in terms of CoV and interquartile range of 20 ground motion values calculated for each site) *Option to plot data from previously run PSHA codes by loading GM_20220302* Otherwise new results from subcatalogs should be combined by uncommenting relevant text. Also option to saves ground motions in txt files so can be compared to Poggi et al (2017) maps and Hodge et al (2015) PSHA maps. Currently set for maps 10% PoE in 50 years and 2% PoE in 50 years.
 
 psha_map/psha_map_comparison/hodge_2015_psha_comparison.m: Optional. Script to recreate Hodge 2015 PSHA results for Malawi, and then compare ground motions with MSSM results. Requires h2015_map_values and shape file of Hodge et al (2015) sources as input. Currently set for 2% PoE in 50 years only. Saves results so can combine with GEM comparison in gem_psha_comparison. Note minimum return period is 1 in 500 year (I.e. less than 10% PoE in 50 years). To compare with MSSM files, PSHAmap_MSSM_figures.m must be run first and output seismic hazard values stored in txt files
 
