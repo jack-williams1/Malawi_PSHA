@@ -16,7 +16,7 @@ MSSM_source_aspectratio.m: new plot to show aspect ratio of all MSSM sources. Eq
 
 Comments by Jack Williams 31/10/22
 
-The following describes the necessary files and steps to (1) generate the MSSM (Williams et al 2021b), and (2) use these data to perform a PSHA for Malawi (Williams et al 2022a).
+The following describes the necessary files and steps to (1) generate the MSSM (Williams et al 2022a), and (2) use these data to perform a PSHA for Malawi (Williams et al 2023).
 
 Codes are written in MATLAB and require the following toolboxes:
 
@@ -64,7 +64,7 @@ SZ_final.m: Source information for areal PSHA sources in East Africa as develope
 
 Malawi Vs30_active.txt: vs30 values for Malawi as derived from topographic slope analysis (Wald and Allen 2007)
 
-gis_files: Various GIS files to aid plotting maps such as national borders and Lake Malawi. Also includes the Malawi Active Fault Database (MAFD; Williams et al 2021c&2022b) and Malawi Seismogenic Source Models (MSSM) GIS files (Williams et al 2021b&2022c).
+gis_files: Various GIS files to aid plotting maps such as national borders and Lake Malawi. Also includes the Malawi Active Fault Database (MAFD; Williams et al 2021c&2022b) and Malawi Seismogenic Source Models (MSSM) GIS files (Williams et al 2022a&2022c).
 
 misc_functions: Various Matlab functions to support scripts as described below
 
@@ -98,7 +98,7 @@ MSSM_sourcegeom/floating_rupture_figure.m: Option to plot 3D geometrical model o
 
 ### 2.) MSSM Source Calcs
 
-MSSM_sourcecalcs/MSSM_sourcecalcs.m: Takes fault geometry, geodetic extension rates, hanging-wall flexure calculations, and Leonard (2010) scaling relationships, and uses them to calculate fault slip rates and recurrence intervals through 10000 Monte Carlo simulations through MSSM logic tree (Williams et al 2021b). Results in terms of mean and 1 standard deviation can be saved as ‘MSSM sources_Calc’ and written into MSSM spreadsheet. For faults with slip rates estimated from the offset seismic reflector, slip rates are initially estimated from the systems-based approach, preserved in variable slip_rate_nb.sr, and then replaced with offset reflector values.
+MSSM_sourcecalcs/MSSM_sourcecalcs.m: Takes fault geometry, geodetic extension rates, hanging-wall flexure calculations, and Leonard (2010) scaling relationships, and uses them to calculate fault slip rates and recurrence intervals through 10000 Monte Carlo simulations through MSSM logic tree (Williams et al 2022a). Results in terms of mean and 1 standard deviation can be saved as ‘MSSM sources_Calc’ and written into MSSM spreadsheet. For faults with slip rates estimated from the offset seismic reflector, slip rates are initially estimated from the systems-based approach, preserved in variable slip_rate_nb.sr, and then replaced with offset reflector values.
 
 MSSM_sourcecalcs/MSSM_sourcecalcplots.m: Plots various figures to analyse MSSM_souces_calcs, such as prob density of fault slip rates, comparison between slip rates from geodesy and offset seismic reflector, histograms, and comparisons to Zomba Graben sources with the SMSSD (SMSSD.xlsx; Williams et al 2021a).
 
@@ -106,9 +106,9 @@ MSSM_sourcecalcs/nBasinFaultSlipRateCalc: Provides slip rate estimates for intra
 
 MSSM_sourcecalcs/MSSM_sourcecalcplots_nbasincomparison.m: Compares the slip rate probability distributions of intrarift faults in Lake Malawi when estimated from the offset reflector and when estimated from the systems-based approach. Requires: calc_overlap_twonormal (Kowerko 2022)
 
-MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexureCalculations.m: Performs hanging-wall flexural calculations for basins in Malawi as described in Appendix of Williams et al (2021b). Requires estimates for the rheological properties of Malawi's crust and border fault offset, as contained in HangingWallFlexureInputs.xlsx. Stores outputs as 'hangingwallfelxcalcs.mat' 
+MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexureCalculations.m: Performs hanging-wall flexural calculations for basins in Malawi as described in Appendix of Williams et al (2022a). Requires estimates for the rheological properties of Malawi's crust and border fault offset, as contained in HangingWallFlexureInputs.xlsx. Stores outputs as 'hangingwallfelxcalcs.mat' 
 
-MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexurePlots.m: Plots hanging-wall flexure strain and crustal profiles as shown in Figure 4 and A3 in Williams et al (2021b). Also plots topographic profiles through basin using digital elevation models and Topotoolbox (Schwanghart and Scherler, 2014) as described in code.
+MSSM_sourcecalcs/hw_flexure_analysis/HangingWallFlexurePlots.m: Plots hanging-wall flexure strain and crustal profiles as shown in Figure 4 and A3 in Williams et al (2022a). Also plots topographic profiles through basin using digital elevation models and Topotoolbox (Schwanghart and Scherler, 2014) as described in code.
 
 Generate_MATfile.m: With MSSM source geometry and calculations complete, store data in variable MSSM_sources
 
@@ -219,11 +219,11 @@ Wedmore, L. N., Biggs, J., Floyd, M., Fagereng, Å., Mdala, H., Chindandali, P.,
 
 Williams, J. N., Mdala, H., Fagereng, Å., Wedmore, L. N., Biggs, J., Dulanya, Z., ... & Mphepo, F. (2021a). A systems-based approach to parameterise seismic hazard in regions with little historical or instrumental seismicity: active fault and seismogenic source databases for southern Malawi. Solid Earth, 12(1), 187-217.
 
-Williams, J. N., Wedmore, L. N., Fagereng, Å., Werner, M. J., Mdala, H., Shillington, D. J., ... & Chindandali, P. (2021b). Geologic and geodetic constraints on the seismic hazard of Malawi’s active faults: The Malawi Seismogenic Source Database (MSSD). Natural Hazards and Earth System Sciences Discussions, 1-47.
+Williams, J. N., Wedmore, L. N., Fagereng, Å., Werner, M. J., Mdala, H., Shillington, D. J., ... & Chindandali, P. (2022a). Geologic and geodetic constraints on the magnitude and frequency of earthquakes along Malawi's active faults: the Malawi Seismogenic Source Model (MSSM). Natural Hazards and Earth System Sciences, 22(11), 3607-3639. https://doi.org/10.5194/nhess-22-3607-2022
 
 Williams, Jack, Wedmore, Luke, Scholz, Christopher A, Kolawole, Folarin, Wright, Lachlan J M, Shillington, Donna J, Fagereng, Å, Biggs, Juliet, Mdala, Hassan, Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick, & Werner, Maximilian J. (2022c). Malawi Active Fault Database (v1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5507190
 
-Williams, J. N., Werner, M. J., Goda. K., Wedmore, L. N., De Risi R., Biggs, J., Mdala, H., Dulanya, Z., Fagereng, Å., Chindandali, P.,  Mphepo, F. (2022a) Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi. Submitted to Natural Hazards
+Williams, J. N., Werner, M. J., Goda. K., Wedmore, L. N., De Risi R., Biggs, J., Mdala, H., Dulanya, Z., Fagereng, Å., Chindandali, P.,  Mphepo, F. (2023) Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi. Submitted to Natural Hazards
 
 Williams, Jack N., Wedmore, Luke N. J., Fagereng, Åke, Werner, Maximilian J., Biggs, Juliet, Mdala, Hassan, Kolawole, Folarin, Shillington, Donna J., Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick R. N., Wright, Lachlan J. M., & Scholz, Christopher A. (2022c). Malawi Seismogenic Source Database (v1.2) [Data set]. https://doi.org/10.5281/zenodo.5599616
 
