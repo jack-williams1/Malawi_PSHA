@@ -2,7 +2,7 @@
 
 Last Edited by Jack Williams 06/03/23 (jack.williams@otago.ac.nz)
 
-Please note the accompanying manuscript for these codes has now been published open-access in Geophysical Journal International:
+Please note the accompanying manuscript that describes the use of these codes has now been published open-access in Geophysical Journal International:
 
 J N Williams, M J Werner, K Goda, L N J Wedmore, R De Risi, J Biggs, H Mdala, Z Dulanya, Å Fagereng, F Mphepo, P Chindandali, Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi, Geophysical Journal International, Volume 233, Issue 3, June 2023, Pages 2172–2206, https://doi.org/10.1093/gji/ggad060
 
