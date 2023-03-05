@@ -231,7 +231,7 @@ Williams, J. N., Wedmore, L. N., Fagereng, Å., Werner, M. J., Mdala, H., Shilli
 
 Williams, Jack, Wedmore, Luke, Scholz, Christopher A, Kolawole, Folarin, Wright, Lachlan J M, Shillington, Donna J, Fagereng, Å, Biggs, Juliet, Mdala, Hassan, Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick, & Werner, Maximilian J. (2022c). Malawi Active Fault Database (v1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.5507190
 
-Williams J.N., Werner M.J., Goda K., Wedmore L.N.J., De Risi R., Biggs J., Mdala H., Dulanya Z., Fagereng Å, Mphepo F., Chindandali P. (2023). Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi, Geophysical Journal International, Volume 233, Issue 3, June 2023, Pages 2172–2206, https://doi.org/10.1093/gji/ggad060
+Williams J. N., Werner M. J., Goda K., Wedmore L. N. J., De Risi R., Biggs J., Mdala H., Dulanya Z., Fagereng Å, Mphepo F., Chindandali P. (2023). Fault-based probabilistic seismic hazard analysis in regions with low strain rates and a thick seismogenic layer: a case study from Malawi, Geophysical Journal International, Volume 233, Issue 3, June 2023, Pages 2172–2206, https://doi.org/10.1093/gji/ggad060
 
 Williams, Jack N., Wedmore, Luke N. J., Fagereng, Åke, Werner, Maximilian J., Biggs, Juliet, Mdala, Hassan, Kolawole, Folarin, Shillington, Donna J., Dulanya, Zuze, Mphepo, Felix, Chindandali, Patrick R. N., Wright, Lachlan J. M., & Scholz, Christopher A. (2022c). Malawi Seismogenic Source Database (v1.2) [Data set]. https://doi.org/10.5281/zenodo.5599616
 
